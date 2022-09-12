@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassMath", "ClassMath\Clas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassString", "ClassString\ClassString.csproj", "{AEE80F0A-7085-423A-86C3-9A17B01F5177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Methods", "Methods\Methods.csproj", "{A0BD1A23-A94E-4318-8F1B-13A507E1B46D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Methods", "Methods\Methods.csproj", "{A0BD1A23-A94E-4318-8F1B-13A507E1B46D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{C0DCD786-29D8-4494-9D1A-1B7D556CA49F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{A0BD1A23-A94E-4318-8F1B-13A507E1B46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0BD1A23-A94E-4318-8F1B-13A507E1B46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0BD1A23-A94E-4318-8F1B-13A507E1B46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0DCD786-29D8-4494-9D1A-1B7D556CA49F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0DCD786-29D8-4494-9D1A-1B7D556CA49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0DCD786-29D8-4494-9D1A-1B7D556CA49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0DCD786-29D8-4494-9D1A-1B7D556CA49F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,23 +18,21 @@ do
 } while (false);
 */
 
-/* FOR
-for (int j = 1; j <= 10; j++)
-{
-    Console.Write(j);
-}
+//for (int j = 1; j <= 10; j++)
+//{
+//    Console.Write(j);
+//}
 
-Console.WriteLine("");
+//Console.WriteLine("");
 
-for (int k = 1; k <= 10; k++)
-{
-    for (int x = 1; x < 10; x++)
-    {
-        Console.Write(x);
-    }
-    Console.WriteLine("");
-}
-*/
+//for (int k = 1; k <= 10; k++)
+//{
+//    for (int x = 1; x < 10; x++)
+//    {
+//        Console.Write(x);
+//    }
+//    Console.WriteLine("");
+//}
 
 /* Function (FOR)
 
@@ -58,3 +56,5 @@ void print1to9()
     Console.WriteLine("");
 }
 */
+
+
