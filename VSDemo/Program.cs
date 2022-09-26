@@ -339,20 +339,23 @@ void ovning17()
 
 void ovning18()
 {
-    int tempRow = 1;
-    int tempRow2;
-    int row = 0;
-    int counter = 1;
-    while (counter <= 20)
+    ulong tempRow = 1;
+    ulong tempRow2;
+    ulong row = 0;
+    ulong counter = 1;
+    while (counter <= 100)
     {
-        for (int i = 0; i <= row; i++)
-        {
-            if (i == row)
-                Console.WriteLine(row);
-        }
+        //for (ulong i = 0; i <= row; i++)
+        //{
+        //    if (i == row)
+        //        Console.WriteLine(row);
+        //}
+
+        Console.WriteLine($"{counter}: {row}");
         tempRow2 = tempRow;
         tempRow = row;
         row = tempRow2 + tempRow;
+
 
         counter++;
     }
@@ -691,57 +694,48 @@ void VariantA()
 
 void VariantB()
 {
-    int Hashtag = 1;
     for (int i = 1; i <= 4; i++)
     {
         for (int j = 1; j <= 8; j++)
         {
-            if (j == Hashtag || j == Hashtag + 4)
+            if (j == i || j == i + 4)
                 Console.Write($"#");
             else
                 Console.Write($"-");
         }
-        Hashtag++;
         Console.WriteLine("");
     }
 }
 
 void VariantC()
 {
-    int Hashtag = 1;
-    for (int i = 1; i <= 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (int j = 1; j <= 8; j++)
+        for (int j = 0; j < 8; j++)
         {
-            if (j == Hashtag || j == Hashtag + 1)
+            if (j / 2 == i)
                 Console.Write($"#");
             else
                 Console.Write($"-");
         }
-        Hashtag += 2;
         Console.WriteLine("");
     }
 }
 
 void VariantD()
 {
-    int Hashtag = 3;
-    int fullRow = 3;
     int width = 8;
     int height = 4;
-    for (int i = 1; i <= height; i++)
+    for (int i = 0; i < height; i++)
     {
-        for (int j = 1; j <= width; j++)
+        for (int j = 0; j < width; j++)
         {
-            if (i == fullRow)
-                Console.Write($"#");
-            else if (j == Hashtag || j == Hashtag + 3)
+
+            if (j == 2 || j == 5 || i == 2)
                 Console.Write($"#");
             else
                 Console.Write($"-");
 
-            if (i == fullRow && j == width)
-                fullRow += 3;
         }
         Console.WriteLine("");
     }
@@ -1509,8 +1503,8 @@ void ovning39()
             Console.WriteLine();
         }
         x += 25;
-    }
-    */
+    }*/
+
 
     //SPELET MAIN KOD
     while (!gameover)
@@ -1518,41 +1512,23 @@ void ovning39()
         //Det här händer när spelet startar om
         if (reset)
         {
+            Console.Clear();
             reset = false;
             direction = "Right";
-
-            for (int i = 0; i < nTail; i++)
-            {
-                Console.SetCursorPosition(TailX[i], TailY[i]);
-                Console.WriteLine(" ");
-            }
-
             Score = 0;
             nTail = 4;
             headX = 10;
             headY = 8;
-            tempX = 0;
-            tempY = 0;
+            berryX = randomnummer.Next(6, 113);
+            berryY = randomnummer.Next(4, 26);
+
             for (int i = 0; i < nTail; i++)
             {
-
                 TailX[i] = 0;
                 TailY[i] = 0;
             }
-            pretempX = 0;
-            pretempY = 0;
-            x = 0;
-            y = 0;
-            berryX = randomnummer.Next(6, 113);
-            berryY = randomnummer.Next(4, 26);
-            Console.Clear();
             Drawborder();
-
         }
-
-        //Kollar om man nuddar någon av väggarna
-        if (headX < 6 || headX > 112 || headY < 4 || headY > 25)
-            gameover = true;
 
         //Om man "äter" ett bär så flyttar den postion och svansen och score plusas med 1
         if (headX == berryX && headY == berryY)
@@ -1563,10 +1539,8 @@ void ovning39()
             berryY = randomnummer.Next(4, 26);
         }
 
-        //Lagrar pretemp med första svansbiten position. Så att de andra svansbitarna hamnar på rätt ställe
         pretempX = TailX[0];
         pretempY = TailY[0];
-        //Gör så att svansen alltid följer efter huvudet
         TailX[0] = headX;
         TailY[0] = headY;
 
@@ -1602,9 +1576,31 @@ void ovning39()
 
         }
 
-        Timer = DateTime.Now;
+        //Kollar om man nuddar någon av väggarna
+        if (headX == 5 || headX == 114 || headY == 3 || headY == 26)
+            gameover = true;
 
-        //Sätter att ingen knapp är nertryckt
+        //När spelet är över händer de här!
+        while (gameover)
+        {
+            //Game over text
+            direction = "";
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(54, 11);
+            Console.Write("YOU LOST!");
+            Console.SetCursorPosition(45, 12);
+            Console.Write("Press R to Restart the game.");
+
+            keypressed = Console.ReadKey(true).Key;
+
+            if (keypressed == ConsoleKey.R)
+            {
+                gameover = false;
+                reset = true;
+            }
+        }
+
+        Timer = DateTime.Now;
         pressed = false;
 
         while (true)
@@ -1677,32 +1673,6 @@ void ovning39()
                 break;
         }
 
-        //När spelet är över händer de här!
-        while (gameover)
-        {
-            //Game over text
-            Console.SetCursorPosition(headX, headY);
-            Console.WriteLine(" ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(54, 11);
-            Console.Write("YOU LOST!");
-            Console.SetCursorPosition(45, 12);
-            Console.Write("Press R to Restart the game.");
-
-            //Printar score för jag har en bug som jag inte orkar lösa. Se rad 1652.
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.SetCursorPosition(6, 2);
-            Console.Write("Score: " + Score);
-
-            keypressed = Console.ReadKey(true).Key;
-
-            if (keypressed == ConsoleKey.R)
-            {
-                gameover = false;
-                reset = true;
-            }
-        }
-
     }
 
     //funktion för att rita väggarna
@@ -1731,6 +1701,8 @@ void ovning39()
         }
     }
 }
+
+//ovning39();
 
 void ovning40()
 {
@@ -2078,11 +2050,6 @@ void ovning59()
 
     }
     Console.Write(string.Join(" ", allWordsFromSentence));
-
-    string FirstLetterToUpperCase(string inputText)
-    {
-        return inputText.ToUpper().Remove(1, inputText.Length - 1) + inputText.Substring(1, inputText.Length - 1);
-    }
 
 
 }
@@ -2461,9 +2428,106 @@ void ovning69()
 
 //OVNING 70
 
-//OVNING 71
+void ovning71()
+{
+    bool validString = false;
+    int loopTimes = 1;
+    do
+    {
+        try
+        {
+            Console.Write("Enter a number: ");
+            loopTimes = int.Parse(Console.ReadLine());
+            validString = true;
+        }
+        catch
+        {
+            Console.WriteLine("Not okey.");
+        }
+    } while (!validString);
+
+    Console.WriteLine($"Fakultet är : {Fakultet(loopTimes)}");
+
+    int Fakultet(int loopTimes)
+    {
+        if (loopTimes == 0)
+            return 1;
+        return loopTimes *= Fakultet(loopTimes - 1);
+    }
+}
 
 //OVNING 72
+void ovning72()
+{
+    bool validString = false;
+    long nFibonacci = 0;
+    do
+    {
+        try
+        {
+            Console.Write("Enter a number: ");
+            nFibonacci = int.Parse(Console.ReadLine());
+            validString = true;
+        }
+        catch
+        {
+            Console.WriteLine("Not okey.");
+        }
+    } while (!validString);
+
+    Console.WriteLine($"Fibotacci är : {FibonacciR(nFibonacci)}");
+
+    long FibonacciR(long nFibonacci, long tempRow = 1, long tempRow2 = 0, long Fibonacci = 0)
+    {
+        if (nFibonacci == 0)
+            return Fibonacci;
+
+        tempRow2 = tempRow;
+        tempRow = Fibonacci;
+        Fibonacci = tempRow2 + tempRow;
+        FibonacciR(nFibonacci - 1);
+
+        return Fibonacci;
+    }
+}
+
+void ovning72v2()
+{
+    bool isValid = false;
+    long n = 1;
+    do
+    {
+        try
+        {
+            Console.Write("Fibonacci tal :# ");
+            n = Int64.Parse(Console.ReadLine());
+            isValid = true;
+        }
+        catch
+        {
+            Console.WriteLine("Not okey.");
+        }
+    } while (!isValid);
+
+    Console.WriteLine(Fibonacci(n));
+
+    long Fibonacci(long n)
+    {
+        long tempRow = 1;
+        long tempRow2;
+        long Fibonacci = 0;
+        long counter = 0;
+
+        while (counter < n - 1)
+        {
+            counter++;
+            tempRow2 = tempRow;
+            tempRow = Fibonacci;
+            Fibonacci = tempRow2 + tempRow;
+        }
+        return Fibonacci;
+    }
+}
 
 //OVNING 73
 
@@ -2488,4 +2552,324 @@ void ovning74()
 
 }
 
-ovning74();
+// KLASSER
+
+void ovning90n91()
+{
+    Dog myDog = new Dog() { Name = "Hund", Breed = "Wiener Dog", Weight = 14.5 };
+    Dog myFatDog = new Dog() { Name = "Katt", Breed = "Chihuahua", Weight = 3 };
+
+    //Console.WriteLine($"Hello! My dog's name is {myDog.Name}. He's a {myDog.Breed}, His weight is {myDog.Weight}kg.");
+    //Console.WriteLine($"Hello! My dog's name is {myFatDog.Name}. He's a {myFatDog.Breed}, His weight is {myFatDog.Weight}kg.");
+
+    myDog.PrintName();
+    myDog.PrintBreed();
+
+    myFatDog.PrintName();
+    myFatDog.PrintBreed();
+
+}
+
+void ovning92()
+{
+    Box box = new Box() { Height = 5, Width = 6 };
+
+    Console.WriteLine(box.GetArea());
+    Console.WriteLine(box.GetCircumference());
+}
+
+void ovning93()
+{
+    Box box = new Box() { Width = 10, Height = 23 };
+
+    box.PrintArea();
+    box.PrintCircumference();
+}
+
+void ovning94()
+{
+    User user = new User();
+
+    user.ShowPassword();
+
+    Console.Write("Skriv gamla lösenordet: ");
+    string oldPassword = Console.ReadLine();
+    Console.Write("Skriv nya lösenordet: ");
+    string newPassword = Console.ReadLine();
+    user.SetPassWord(newPassword, oldPassword);
+
+
+    user.ShowPassword();
+}
+
+void ovning95()
+{
+    Car Ford = new Car() { Model = "Ford", Price = 70000, Color = "Black" };
+    Car Volvo = new Car() { Model = "Volvo", Price = 250000 };
+    Car Kia = new Car() { Model = "Kia" };
+
+    Ford.WhatCar();
+    Ford.HalfPrice();
+    Ford.WhatCar();
+}
+
+void ovning96n97()
+{
+    Pedometer Jogger = new Pedometer();
+    Pedometer Jogger2 = new Pedometer();
+    Pedometer Jogger3 = new Pedometer();
+    Pedometer Jogger4 = new Pedometer();
+    Pedometer Jogger5 = new Pedometer();
+    Pedometer Jogger6 = new Pedometer();
+    Pedometer Jogger7 = new Pedometer();
+    Pedometer Jogger8 = new Pedometer();
+    Pedometer Jogger9 = new Pedometer();
+    Pedometer Jogger10 = new Pedometer();
+    Random rng = new Random();
+
+    int[] AllJoggers = new int[10];
+
+    for (int i = 0; i < 1000; i++)
+    {
+        int random = rng.Next(0, 10);
+
+        switch (random)
+        {
+            case 0:
+                AllJoggers[0] = Jogger.Step();
+                break;
+            case 1:
+                AllJoggers[1] = Jogger2.Step();
+                break;
+            case 2:
+                AllJoggers[2] = Jogger3.Step();
+                break;
+            case 3:
+                AllJoggers[3] = Jogger4.Step();
+                break;
+            case 4:
+                AllJoggers[4] = Jogger5.Step();
+                break;
+            case 5:
+                AllJoggers[5] = Jogger6.Step();
+                break;
+            case 6:
+                AllJoggers[6] = Jogger7.Step();
+                break;
+            case 7:
+                AllJoggers[7] = Jogger8.Step();
+                break;
+            case 8:
+                AllJoggers[8] = Jogger9.Step();
+                break;
+            case 9:
+                AllJoggers[9] = Jogger10.Step();
+                break;
+
+        }
+    }
+
+    for (int i = 0; i < AllJoggers.Length; i++)
+    {
+        Console.WriteLine($"Jogger #{i + 1} walked: {AllJoggers[i]} steps.");
+    }
+}
+
+void ovning97update36()
+{
+    Random moveCursorToYPos = new Random();
+    Pedometer[] Counter = new Pedometer[10];
+
+    int CursorlocationY;
+    Console.CursorVisible = false;
+
+    for (int i = 0; i < Counter.Length; i++)
+    {
+        Counter[i] = new Pedometer();
+        Console.WriteLine(Counter[i].step);
+    }
+
+    while (true)
+    {
+        Thread.Sleep(1000);
+        Console.SetCursorPosition(0, 0);
+
+        CursorlocationY = moveCursorToYPos.Next(0, 10);
+
+        switch (CursorlocationY)
+        {
+            case 0:
+                Counter[0].Step();
+                break;
+            case 1:
+                Counter[1].Step();
+                break;
+            case 2:
+                Counter[2].Step();
+                break;
+            case 3:
+                Counter[3].Step();
+                break;
+            case 4:
+                Counter[4].Step();
+                break;
+            case 5:
+                Counter[5].Step();
+                break;
+            case 6:
+                Counter[6].Step();
+                break;
+            case 7:
+                Counter[7].Step();
+                break;
+            case 8:
+                Counter[8].Step();
+                break;
+            case 9:
+                Counter[9].Step();
+                break;
+
+        }
+
+        for (int i = 0; i < Counter.Length; i++)
+        {
+            if (Counter[i].step == 10)
+            {
+                Counter[i].ResetStep();
+            }
+
+            if (i == CursorlocationY)
+                Console.ForegroundColor = ConsoleColor.Red;
+            else
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+            Console.WriteLine(Counter[i].step);
+        }
+        Console.SetCursorPosition(0, CursorlocationY);
+    }
+}
+
+void ovning98()
+{
+    Person Mikael = new Person("Mikael");
+    Mikael.Mother = new Person("Ulla");
+    Mikael.Father = new Person("Pertti");
+    Mikael.Mother.Mother = new Person("Viola");
+    Mikael.Mother.Father = new Person("Lars-Erik");
+    Mikael.Father.Mother = new Person("Grandmother");
+    Mikael.Father.Father = new Person("Grandfather");
+}
+
+void ovning99n100()
+{
+    Person2 Mikael = new("Mikael", "Eriksson", "The skilled");
+    Person2 MikaelBMI = new(77, 1.83);
+    Person2 Paulina = new("Paulina", "Jonsson");
+
+    Console.WriteLine(Mikael.FullName);
+    Console.WriteLine(Paulina.FullName);
+    Console.WriteLine(MikaelBMI.BMI);
+}
+
+void ovning101()
+{
+    RednBlue color = new RednBlue();
+    color.red = 56.4f;
+
+    Console.WriteLine($"Red value is {color.Red}");
+    Console.WriteLine($"Blue value is {color.Blue}");
+
+}
+
+void ovning102()
+{
+    Person3 mikael = new Person3("Mikael", "Eriksson");
+    Person3 Paulina = new Person3("Paulina Jonsson");
+
+    Console.WriteLine(mikael.FirstName);
+    Console.WriteLine(mikael.LastName);
+    Console.WriteLine(mikael.Name);
+    Console.WriteLine();
+
+    Console.WriteLine(Paulina.FirstName);
+    Console.WriteLine(Paulina.LastName);
+    Console.WriteLine(Paulina.Name);
+}
+
+void ovning103n104n105()
+{
+    Car103[] cars = new Car103[1000];
+    int amount = 0;
+    totalLengthOfGreenCars();
+
+    void totalLengthOfGreenCars()
+    {
+        int totalLength = 0;
+        for (int i = 0; i < cars.Count(); i++)
+        {
+            cars[i] = new Car103();
+
+            if (cars[i].CarColor == ConsoleColor.Green)
+            {
+                totalLength += cars[i].CarLength;
+                amount++;
+            }
+        }
+        // Console.WriteLine(totalLength + " meter." + $" Green cars: {amount}.");
+    }
+
+    //********************************104******************************************
+    Car103[] DCar = new Car103[10];
+    DCar = Car103.GetCars(cars[4]);
+    for (int i = 0; i < DCar.Length; i++)
+    {
+        // Console.WriteLine(DCar[i].CarColor.ToString() + " car and " + DCar[i].CarLength + " meters.");
+    }
+
+    //************************************105**************************************
+
+    Car103[] tenNewCars = new Car103[10];
+    for (int i = 0; i < tenNewCars.Length; i++)
+    {
+        tenNewCars[i] = new Car103();
+        tenNewCars[i].GetGraph(tenNewCars[i].Distance);
+    }
+
+    do
+    {
+        Console.CursorVisible = false;
+        Console.SetCursorPosition(0, 0);
+
+        for (int i = 0; i < tenNewCars.Length; i++)
+        {
+            tenNewCars[i].DriveForOneHour();
+            tenNewCars[i].moveCar(tenNewCars[i].Distance, tenNewCars[i].CarColor,i);
+            tenNewCars[i].PrintDistance(tenNewCars[i].Distance, i);
+        }
+            Thread.Sleep(700);
+    } while (true);
+
+
+
+}
+
+
+void ovning106()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        //TemplateClass.CreateInstance(i);
+        TemplateClass.CreateInstance(i);
+        Console.WriteLine(TemplateClass.CreateInstance(i).id);
+    }
+    Console.WriteLine("FINISH!");
+
+}
+
+
+void ovning107()
+{
+
+}
+
+ovning107();
