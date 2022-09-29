@@ -1,24 +1,17 @@
-﻿using System.Dynamic;
-
-public class TemplateClass
+﻿public class TemplateClass
 {
+    private static int nextSerial =1;
+    public string _serialNumber;
+    private string SerialNumber { get { return "Löpnummer "; } }
 
-    public string id;
-
-    private TemplateClass(int num)
-        {
-        this.id = GetName + num;
-        }
-
-    private string GetName
+    private TemplateClass(int serial)
     {
-        get { return "Löpnummer "; }
-
+        _serialNumber = SerialNumber + serial;
     }
 
-    public static TemplateClass CreateInstance(int num)
+    public static TemplateClass CreateInstance()
     {
-        return new TemplateClass(num);
+        return new TemplateClass(nextSerial++);
     }
 }
 

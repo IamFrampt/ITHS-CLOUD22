@@ -6,8 +6,8 @@ public class Car103
     public int CarLength;
     public int Mph;
     private int maxDistance = 10000;
-    public int Distance = 0;
-    int trackLength = 90;
+    public int Distance { get; set; }
+    int trackLength = 20;
     int temp=1;
     int moveInXPos=0;
 
@@ -32,14 +32,12 @@ public class Car103
         this.CarLength = carLength;
     }
 
-
     public static Car103[] GetCars(Car103 tenCars)
     {
         Car103[] cars = new Car103[10];
 
         for (int i = 0; i < cars.Length; i++)
         {
-            int rnd = random.Next(3, 6);
             cars[i] = new Car103((ConsoleColor)tenCars.carColor);
         }
 
@@ -61,7 +59,6 @@ public class Car103
         
 
     }
-
     public void moveCar(int distance, ConsoleColor carColor, int row)
     {
         

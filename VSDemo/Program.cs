@@ -2814,19 +2814,21 @@ void ovning103n104n105()
                 totalLength += cars[i].CarLength;
                 amount++;
             }
+            //Console.ForegroundColor = cars[i].CarColor;
+            //Console.WriteLine(cars[i].CarLength);
         }
         // Console.WriteLine(totalLength + " meter." + $" Green cars: {amount}.");
     }
 
-    //********************************104******************************************
+    ////********************************104******************************************
     Car103[] DCar = new Car103[10];
     DCar = Car103.GetCars(cars[4]);
     for (int i = 0; i < DCar.Length; i++)
     {
-        // Console.WriteLine(DCar[i].CarColor.ToString() + " car and " + DCar[i].CarLength + " meters.");
+         //Console.WriteLine(DCar[i].CarColor.ToString() + " car and " + DCar[i].CarLength + " meters.");
     }
 
-    //************************************105**************************************
+    ////************************************105**************************************
 
     Car103[] tenNewCars = new Car103[10];
     for (int i = 0; i < tenNewCars.Length; i++)
@@ -2843,33 +2845,85 @@ void ovning103n104n105()
         for (int i = 0; i < tenNewCars.Length; i++)
         {
             tenNewCars[i].DriveForOneHour();
-            tenNewCars[i].moveCar(tenNewCars[i].Distance, tenNewCars[i].CarColor,i);
+            tenNewCars[i].moveCar(tenNewCars[i].Distance, tenNewCars[i].CarColor, i);
             tenNewCars[i].PrintDistance(tenNewCars[i].Distance, i);
         }
-            Thread.Sleep(700);
+        Thread.Sleep(700);
     } while (true);
 
-
-
 }
-
 
 void ovning106()
 {
     for (int i = 0; i < 10; i++)
     {
-        //TemplateClass.CreateInstance(i);
-        TemplateClass.CreateInstance(i);
-        Console.WriteLine(TemplateClass.CreateInstance(i).id);
+        Console.WriteLine(TemplateClass.CreateInstance()._serialNumber);
     }
     Console.WriteLine("FINISH!");
 
 }
 
+/// OVNING 107
 
-void ovning107()
+void ovning108()
 {
+    Temperatur temp = new Temperatur(37);
+    Temperatur temp2 = new Temperatur();
+
+    Console.WriteLine(temp.Celsius);
+    Console.WriteLine(temp.Farenheit);
+    Console.WriteLine(temp.Kelvin);
+    Console.WriteLine();
+    Console.WriteLine(temp2.Celsius);
+    Console.WriteLine(temp2.Farenheit);
+    Console.WriteLine(temp2.Kelvin);
+
 
 }
 
-ovning107();
+void ovning109()
+{
+    Number number = new Number();
+
+    number.myNumber = 5;
+    number.myNumber = 4;
+    number.myNumber = 2;
+    number.myNumber = 8;
+    number.myNumber = 6;
+    number.myNumber = 4;
+    number.myNumber = 2;
+    number.myNumber = 8;
+    number.myNumber = 6;
+
+    int[] historyOfAllNumbers = new int[number.GetHistory().Length];
+    historyOfAllNumbers = number.GetHistory();
+
+    foreach (int item in historyOfAllNumbers)
+    {
+        Console.WriteLine(item);
+    }
+    
+
+}
+
+void ovning110()
+{
+    SaveText110 Wow = SaveText110.CreateInstance("hej jag heter mikael");
+    SaveText110 Wow2 = SaveText110.CreateInstance("och jag är coolast i världen");
+    SaveText110 Wow3 = SaveText110.CreateInstance("köpte nyss fifa23");
+    SaveText110 Wow4 = SaveText110.CreateInstance("och jag är såklart bäst");
+
+    //SaveText110.VowelsAndConsonants();
+    Console.WriteLine($"Vowels: {SaveText110._vowels}");
+    Console.WriteLine($"Consonants: {SaveText110._consonants}");
+    Console.WriteLine($"Total Length: {SaveText110.totalLength}");
+    Console.WriteLine($"Average Length: {SaveText110.averageLength}");
+}
+
+void ovning111()
+{
+    WriteAndRead.Write = Console.ReadLine();
+    Console.WriteLine(WriteAndRead.Read);
+}
+
+ovning110();
