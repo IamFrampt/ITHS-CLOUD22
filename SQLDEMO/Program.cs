@@ -12,18 +12,20 @@ while (true)
     Console.Write("Enter search string: ");
     string searchString = Console.ReadLine();
     if (string.IsNullOrWhiteSpace(searchString)) break;
-    FetchAirPorts(Connection,searchString);
+    FetchAirPorts(Connection,searchString,8);
 
 }
 
-static void FetchAirPorts(SqlConnection connection, string searchString)
+static void FetchAirPorts(SqlConnection connection, string searchString,int max)
 {
     try
     {
         string Query =
-            $"Select top 5 Iata, [Airport Name], [Location served] from airports2 where [airport name] like '%{searchString}%'";
+            "Select top (@maxCount) Iata, [Airport Name], [Location served] from airports2 where [airport name] like concat('%', @searchString, '%')";
         SqlCommand command = new SqlCommand(Query, connection);
 
+        command.Parameters.Add("searchString",System.Data.SqlDbType.NVarChar).Value = searchString;
+        command.Parameters.Add("maxCount", System.Data.SqlDbType.Int).Value = max;
         using SqlDataReader reader = command.ExecuteReader();
 
         for (int i = 0; i < reader.FieldCount; i++)
