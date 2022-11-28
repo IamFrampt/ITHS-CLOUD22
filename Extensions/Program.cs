@@ -2,7 +2,7 @@
 Console.WriteLine("HEJHEJHEJ!".ToTitle());
 
 
-public static class stringExtensions
+public static class StringExtensions
 {
     public static string ToTitle(this string text)
     {
@@ -10,7 +10,4 @@ public static class stringExtensions
         returnValue += text.Substring(1).ToLower();
         return returnValue;
     }
-
-
-
 }

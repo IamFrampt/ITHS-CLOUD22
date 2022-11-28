@@ -2825,7 +2825,7 @@ void ovning103n104n105()
     DCar = Car103.GetCars(cars[4]);
     for (int i = 0; i < DCar.Length; i++)
     {
-         //Console.WriteLine(DCar[i].CarColor.ToString() + " car and " + DCar[i].CarLength + " meters.");
+        //Console.WriteLine(DCar[i].CarColor.ToString() + " car and " + DCar[i].CarLength + " meters.");
     }
 
     ////************************************105**************************************
@@ -2902,7 +2902,7 @@ void ovning109()
     {
         Console.WriteLine(item);
     }
-    
+
 
 }
 
@@ -2926,4 +2926,36 @@ void ovning111()
     Console.WriteLine(WriteAndRead.Read);
 }
 
-ovning110();
+void ovning112n113n114()
+{
+    Func<string,string,string> printName = FullName2;
+    Console.WriteLine(printName("Mikael", "Eriksson"));
+    Console.WriteLine();
+
+    FullName3(FullName2);
+
+    string FullName(string firstName, string lastName)
+    {
+        return (firstName + " " + lastName);
+    }
+    string FullName2(string firstName, string lastName)
+    {
+        return $"First name: {firstName} \nLast name: {lastName}";
+    }
+
+    void FullName3(Func<string,string,string> fullname)
+    {
+        Console.WriteLine(fullname("Mikael","Eriksson"));
+        Console.WriteLine();
+        Console.WriteLine(fullname("Paulina", "Jonsson"));
+        Console.WriteLine();
+        Console.WriteLine(fullname("Ioannis", "Anastasiadis"));
+    }
+}
+
+void ovning115()
+{
+    
+}
+
+ovning112n113n114();
